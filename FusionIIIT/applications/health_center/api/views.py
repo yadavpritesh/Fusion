@@ -109,7 +109,8 @@ def student_view_api(request):                                                  
         medicines = serializers.PrescribedMedicineSerializer(Prescribed_medicine.objects.all(),many=True).data
         complaints = serializers.ComplaintSerializer(Complaint.objects.filter(user_id=user_id).order_by('-date'),many=True).data
         days = Constants.DAYS_OF_WEEK
-        schedule=serializers.ScheduleSerializer(Doctors_Schedule.objects.all().order_by('doctor_id'),many=True).data
+        doctor_schedule=serializers.DoctorsScheduleSerializer(Doctors_Schedule.objects.all().order_by('doctor_id'),many=True).data
+        pathologist_schedule=serializers.PathologistScheduleSerializer(Pathologist_Schedule.objects.all().order_by('pathologist_id'), many=True).data
         doctors=serializers.DoctorSerializer(Doctor.objects.filter(active=True),many=True).data
         count=Counter.objects.all()
         if count:
@@ -126,7 +127,8 @@ def student_view_api(request):                                                  
             'hospitals': hospitals, 
             'appointments': appointments,
             'prescription': prescription, 
-            'schedule': schedule
+            'doctor_schedule': doctor_schedule,
+            'pathologist_schedule':pathologist_schedule,
         }
         return Response(data=resp,status=status.HTTP_200_OK)
         
