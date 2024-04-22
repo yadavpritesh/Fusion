@@ -32,7 +32,7 @@ class Constants:
     )
 
 class Doctor(models.Model):
-    doctor_name = models.CharField(choices=Constants.NAME_OF_DOCTOR, max_length=50)
+    doctor_name = models.CharField(max_length=50)
     doctor_phone = models.CharField(max_length=15)
     specialization = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
@@ -99,7 +99,7 @@ class Expiry(models.Model):
 class Doctors_Schedule(models.Model):
     doctor_id = models.ForeignKey(Doctor,on_delete=models.CASCADE)
     # pathologist_id = models.ForeignKey(Pathologist,on_delete=models.CASCADE, default=0)
-    day = models.CharField(choices=Constants.DAYS_OF_WEEK, max_length=10)
+    day = models.CharField(max_length=10)
     from_time = models.TimeField(null=True,blank=True)  
     to_time = models.TimeField(null=True,blank=True)
     room = models.IntegerField()
